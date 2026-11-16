@@ -19,10 +19,10 @@
   },
   "scripts": {
     "test": "node test/run.mjs",
-    "lint": "eslint .",
+    "lint": "npx --yes eslint@9.39.5 .",
     "typecheck": "tsc -p jsconfig.json",
     "format": "prettier --write \"**/*.mjs\"",
-    "check": "prettier --check \"**/*.mjs\" && eslint . && tsc -p jsconfig.json && node test/run.mjs",
+    "check": "prettier --check \"**/*.mjs\" && npm run lint && tsc -p jsconfig.json && node test/run.mjs",
     "pack:mcpb": "node scripts/pack-mcpb.mjs"
   },
   "keywords": [
@@ -49,10 +49,8 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
-    "@anthropic-ai/mcpb": "2.1.2",
     "@eslint/js": "^9.39.5",
     "@types/node": "^22.20.5",
-    "eslint": "^9.39.5",
     "globals": "^17.14.0",
     "prettier": "^3.10.1",
     "typescript": "^5.9.3"

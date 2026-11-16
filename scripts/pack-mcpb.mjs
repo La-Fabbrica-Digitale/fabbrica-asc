@@ -31,11 +31,11 @@ execFileSync("npm", ["ci", "--omit=dev", "--ignore-scripts", "--no-audit", "--no
 });
 
 const out = join(root, "dist", `fabbrica-appstoreconnect-${pkg.version}.mcpb`);
-execFileSync("npx", ["--no-install", "mcpb", "validate", join(build, "manifest.json")], {
+execFileSync("npx", ["--yes", "@anthropic-ai/mcpb@2.1.2", "validate", join(build, "manifest.json")], {
   cwd: root,
   stdio: "inherit",
 });
-execFileSync("npx", ["--no-install", "mcpb", "pack", build, out], { cwd: root, stdio: "inherit" });
+execFileSync("npx", ["--yes", "@anthropic-ai/mcpb@2.1.2", "pack", build, out], { cwd: root, stdio: "inherit" });
 const sha = createHash("sha256").update(readFileSync(out)).digest("hex");
 writeFileSync(out + ".sha256", `${sha}  ${out.split("/").pop()}\n`);
 console.log(`\n${out}\nsha256 ${sha}`);
