@@ -1,0 +1,130 @@
+{
+  "manifest_version": "0.3",
+  "name": "fabbrica-appstoreconnect",
+  "display_name": "App Store Connect (Fabbrica)",
+  "version": "0.1.0",
+  "description": "App Store Connect MCP server: texts, keywords, screenshots, IAP, review and release from Claude. Dangerous actions are off by default.",
+  "long_description": "Local MCP server for the App Store Connect API. Uploads whole screenshot folders with a dry run first. Talks only to Apple hosts and reads files only from the folder you choose. Submit, release, delete, pricing and raw API calls are off by default; when enabled, every call needs a two-step confirmation in a system dialog that the AI cannot answer. Every write is logged to ~/.fabbrica-appstoreconnect/audit.log.",
+  "author": {
+    "name": "Fabbrica Digitale",
+    "url": "https://fabbrica.tech"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/La-Fabbrica-Digitale/fabbrica-asc"
+  },
+  "homepage": "https://github.com/La-Fabbrica-Digitale/fabbrica-asc",
+  "license": "MIT",
+  "keywords": [
+    "app store connect",
+    "app store connect mcp",
+    "ios",
+    "aso",
+    "screenshots",
+    "in-app purchase",
+    "release"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "bin/fabbrica-appstoreconnect.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/bin/fabbrica-appstoreconnect.mjs"
+      ],
+      "env": {
+        "ASC_KEY_ID": "${user_config.key_id}",
+        "ASC_ISSUER_ID": "${user_config.issuer_id}",
+        "ASC_P8_PATH": "${user_config.p8_path}",
+        "ASC_FILES_ROOT": "${user_config.files_root}",
+        "ASC_READONLY": "${user_config.readonly}",
+        "ASC_ENABLE_METADATA": "${user_config.enable_metadata}",
+        "ASC_ENABLE_MEDIA": "${user_config.enable_media}",
+        "ASC_ENABLE_RELEASE": "${user_config.enable_release}",
+        "ASC_ENABLE_DELETE": "${user_config.enable_delete}",
+        "ASC_ENABLE_PRICING": "${user_config.enable_pricing}",
+        "ASC_ENABLE_RAW": "${user_config.enable_raw}"
+      }
+    }
+  },
+  "user_config": {
+    "key_id": {
+      "type": "string",
+      "title": "Key ID",
+      "description": "10-character Key ID from App Store Connect → Users and Access → Integrations → App Store Connect API.",
+      "required": true,
+      "sensitive": true
+    },
+    "issuer_id": {
+      "type": "string",
+      "title": "Issuer ID",
+      "description": "UUID shown above the key list on the same page.",
+      "required": true,
+      "sensitive": true
+    },
+    "p8_path": {
+      "type": "file",
+      "title": "Private key (.p8)",
+      "description": "AuthKey_XXXXXXXXXX.p8 downloaded when the key was created. Use a key with the App Manager role.",
+      "required": true
+    },
+    "files_root": {
+      "type": "directory",
+      "title": "Files folder",
+      "description": "Required. The server uploads screenshots and videos only from inside this folder.",
+      "required": true
+    },
+    "readonly": {
+      "type": "boolean",
+      "title": "Read-only mode",
+      "description": "Block all writes.",
+      "default": false
+    },
+    "enable_metadata": {
+      "type": "boolean",
+      "title": "Edit metadata",
+      "description": "Versions, texts, keywords, categories, review info, attach build.",
+      "default": true
+    },
+    "enable_media": {
+      "type": "boolean",
+      "title": "Upload media",
+      "description": "Screenshots, previews, header and search images.",
+      "default": true
+    },
+    "enable_release": {
+      "type": "boolean",
+      "title": "DANGEROUS: submit and release",
+      "description": "Submit for review, cancel, release, phased release. Each call needs a two-step confirmation in a system dialog.",
+      "default": false
+    },
+    "enable_delete": {
+      "type": "boolean",
+      "title": "DANGEROUS: delete",
+      "description": "Delete screenshots, previews, localizations, unsubmitted versions, library images. Each call needs a two-step confirmation.",
+      "default": false
+    },
+    "enable_pricing": {
+      "type": "boolean",
+      "title": "DANGEROUS: pricing",
+      "description": "Change the app price. Each call needs a two-step confirmation.",
+      "default": false
+    },
+    "enable_raw": {
+      "type": "boolean",
+      "title": "DANGEROUS: raw API",
+      "description": "Any App Store Connect API call. Writes need a two-step confirmation. Deleting apps, users and signing assets stay blocked.",
+      "default": false
+    }
+  },
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  }
+}

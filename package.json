@@ -1,0 +1,64 @@
+{
+  "name": "fabbrica-appstoreconnect",
+  "version": "0.1.0",
+  "description": "App Store Connect MCP server: texts, keywords, screenshots, IAP, review and release from Claude or any MCP client. Dangerous actions are off by default and need a double confirmation in a native OS dialog.",
+  "type": "module",
+  "bin": {
+    "fabbrica-appstoreconnect": "bin/fabbrica-appstoreconnect.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "manifest.json",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node test/run.mjs",
+    "lint": "eslint .",
+    "typecheck": "tsc -p jsconfig.json",
+    "format": "prettier --write \"**/*.mjs\"",
+    "check": "prettier --check \"**/*.mjs\" && eslint . && tsc -p jsconfig.json && node test/run.mjs",
+    "pack:mcpb": "node scripts/pack-mcpb.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "app-store-connect",
+    "app-store-connect-mcp",
+    "appstoreconnect",
+    "ios",
+    "aso",
+    "screenshots",
+    "in-app-purchase",
+    "claude"
+  ],
+  "author": "Fabbrica Digitale (https://fabbrica.tech)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/La-Fabbrica-Digitale/fabbrica-asc.git"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "2.1.2",
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^22.20.5",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "typescript": "^5.9.3"
+  },
+  "homepage": "https://github.com/La-Fabbrica-Digitale/fabbrica-asc",
+  "bugs": {
+    "url": "https://github.com/La-Fabbrica-Digitale/fabbrica-asc/issues"
+  }
+}
